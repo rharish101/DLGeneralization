@@ -6,6 +6,7 @@ from keras.layers import Dense, Flatten
 from keras.callbacks import TensorBoard, EarlyStopping
 from keras.optimizers import SGD
 from keras.initializers import Constant
+from keras.regularizers import l2
 import keras.backend as K
 import pickle
 import time
@@ -14,10 +15,10 @@ from shutil import copy
 model = Sequential()
 model.add(Flatten(input_shape=(28, 28, 3)))
 model.add(Dense(512, kernel_initializer='glorot_normal',
-                bias_initializer=Constant(0.1), kernel_regularizer='l2',
+                bias_initializer=Constant(0.1), kernel_regularizer=l2(1e-3),
                 activation='relu'))
 model.add(Dense(10, kernel_initializer='glorot_normal',
-                bias_initializer=Constant(0.1), kernel_regularizer='l2',
+                bias_initializer=Constant(0.1), kernel_regularizer=l2(0),
                 activation='softmax'))
 
 early_stop = EarlyStopping(monitor='loss', min_delta=0.0005, patience=5)
@@ -91,5 +92,5 @@ response = raw_input("Do you want to save this model? (Y/n): ")
 if response.lower() not in ['n', 'no', 'nah', 'nein', 'nahi', 'nope']:
     model.save('cifar10_mlp1_wd.h5')
     copy('./cifar10_keras_mlp_wd.py', './Tensorboard/mlp1/' + now)
-print "Model saved"
+    print "Model saved"
 
