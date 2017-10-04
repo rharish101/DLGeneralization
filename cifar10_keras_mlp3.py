@@ -92,6 +92,6 @@ print(model.evaluate(np.array(cifar10_test_images),
 response = raw_input("Do you want to save this model? (Y/n): ")
 if response.lower() not in ['n', 'no', 'nah', 'nein', 'nahi', 'nope']:
     model.save('cifar10_mlp3.h5')
-    copy('./cifar10_keras_mlp.py', './Tensorboard/mlp3/' + now)
+    copy('./cifar10_keras_mlp3.py', './Tensorboard/mlp3/' + now)
     print "Model saved"
 
