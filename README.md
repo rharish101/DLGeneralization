@@ -1,4 +1,4 @@
-# DLGeneralization
+# Deep Learning Generalization
 My project to recreate the results in "Understanding Deep Learning Requires Rethinking Generalization" and do something similar on NLP.
 
 Contents

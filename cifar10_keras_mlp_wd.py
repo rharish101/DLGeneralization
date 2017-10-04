@@ -18,8 +18,7 @@ model.add(Dense(512, kernel_initializer='glorot_normal',
                 bias_initializer=Constant(0.1), kernel_regularizer=l2(1e-4),
                 activation='relu'))
 model.add(Dense(10, kernel_initializer='glorot_normal',
-                bias_initializer=Constant(0.1), kernel_regularizer=l2(0),
-                activation='softmax'))
+                bias_initializer=Constant(0.1), activation='softmax'))
 
 early_stop = EarlyStopping(monitor='loss', min_delta=0.0005, patience=5)
 now = str(time.time())
