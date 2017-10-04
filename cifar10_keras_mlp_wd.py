@@ -15,7 +15,7 @@ from shutil import copy
 model = Sequential()
 model.add(Flatten(input_shape=(28, 28, 3)))
 model.add(Dense(512, kernel_initializer='glorot_normal',
-                bias_initializer=Constant(0.1), kernel_regularizer=l2(1e-3),
+                bias_initializer=Constant(0.1), kernel_regularizer=l2(1e-4),
                 activation='relu'))
 model.add(Dense(10, kernel_initializer='glorot_normal',
                 bias_initializer=Constant(0.1), kernel_regularizer=l2(0),
