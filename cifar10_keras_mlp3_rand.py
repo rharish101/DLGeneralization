@@ -24,7 +24,7 @@ model.add(Dense(512, kernel_initializer='glorot_normal',
 model.add(Dense(10, kernel_initializer='glorot_normal',
                 bias_initializer=Constant(0.1), activation='softmax'))
 
-early_stop = EarlyStopping(monitor='loss', min_delta=0.0005, patience=5)
+early_stop = EarlyStopping(monitor='loss', min_delta=0.0001, patience=5)
 now = str(time.time())
 tb_callback = TensorBoard(log_dir='Tensorboard/mlp3/' + now)
 
@@ -59,7 +59,7 @@ for i in range(1, 6):
     train_file.close()
 
 epochs = 200
-batch_size = 4
+batch_size = 2
 
 prev_loss = 1e4
 patience = deepcopy(early_stop.patience)
