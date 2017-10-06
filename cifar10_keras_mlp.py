@@ -9,6 +9,7 @@ from keras.initializers import Constant
 import keras.backend as K
 import pickle
 import time
+from copy import deepcopy
 from shutil import copy
 
 model = Sequential()
@@ -18,7 +19,7 @@ model.add(Dense(512, kernel_initializer='glorot_normal',
 model.add(Dense(10, kernel_initializer='glorot_normal',
                 bias_initializer=Constant(0.1), activation='softmax'))
 
-early_stop = EarlyStopping(monitor='loss', min_delta=0.0005, patience=5)
+early_stop = EarlyStopping(monitor='loss', min_delta=0.0001, patience=5)
 now = str(time.time())
 tb_callback = TensorBoard(log_dir='Tensorboard/mlp1/' + now)
 
@@ -56,17 +57,17 @@ epochs = 200
 batch_size = 4
 
 prev_loss = 1e4
-patience = early_stop.patience
+patience = deepcopy(early_stop.patience)
 for epoch in range(epochs):
     hist = model.fit(np.array(cifar10_train_images), np.array(
                      cifar10_train_labels), epochs=(epoch + 1),
                      batch_size=batch_size, initial_epoch=epoch,
-                     callbacks=[early_stop, tb_callback])
+                     callbacks=[tb_callback])
     K.set_value(opt.lr, 0.95 * K.get_value(opt.lr))
     if hist.history[early_stop.monitor][0] - prev_loss > early_stop.min_delta:
         patience -= 1
     else:
-        patience = early_stop.patience
+        patience = deepcopy(early_stop.patience)
     if patience <= 0:
         break
     else:
