@@ -54,7 +54,7 @@ for i in range(1, 6):
     train_file.close()
 
 epochs = 200
-batch_size = 8
+batch_size = 2
 for epoch in range(epochs):
     model.fit(np.array(cifar10_train_images), np.array(cifar10_train_labels),
               epochs=(epoch + 1), batch_size=batch_size, initial_epoch=epoch,

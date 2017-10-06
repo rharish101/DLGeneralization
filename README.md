@@ -15,4 +15,5 @@ Contents
 * *cifar10_keras_mlp3_wd.h5*: A saved Keras Sequential model for MLP with 3 hidden layer and L2 regularisation, trained on CIFAR10.
 * *cifar10_keras_mlp.h5*: A saved Keras Sequential model for MLP with 1 hidden layer, trained on CIFAR10.
 * *cifar10_keras_mlp_wd.h5*: A saved Keras Sequential model for MLP with 1 hidden layer and L2 regularisation, trained on CIFAR10.
+* *cifar10_keras_mlp_rand.h5*: A saved Keras Sequential model for MLP with 1 hidden layer, trained on CIFAR10 with random labels.
 * results: A folder containing screenshots of my current best results
