@@ -52,13 +52,25 @@ for i in range(1, 6):
         cifar10_train_labels.append(label)
     train_file.close()
 
-epochs = 100
-batch_size = 16
+epochs = 200
+batch_size = 4
+
+prev_loss = 1e4
+patience = early_stop.patience
 for epoch in range(epochs):
-    model.fit(np.array(cifar10_train_images), np.array(cifar10_train_labels),
-              epochs=(epoch + 1), batch_size=batch_size, initial_epoch=epoch,
-              callbacks=[early_stop, tb_callback])
+    hist = model.fit(np.array(cifar10_train_images), np.array(
+                     cifar10_train_labels), epochs=(epoch + 1),
+                     batch_size=batch_size, initial_epoch=epoch,
+                     callbacks=[early_stop, tb_callback])
     K.set_value(opt.lr, 0.95 * K.get_value(opt.lr))
+    if hist.history[early_stop.monitor][0] - prev_loss > early_stop.min_delta:
+        patience -= 1
+    else:
+        patience = early_stop.patience
+    if patience <= 0:
+        break
+    else:
+        prev_loss = hist.history[early_stop.monitor][0]
 
 del cifar10_train_images, cifar10_train_labels
 print "Loading test images..."
