@@ -10,6 +10,7 @@ from keras.regularizers import l2
 import keras.backend as K
 import pickle
 import time
+from copy import deepcopy
 from shutil import copy
 
 model = Sequential()
@@ -62,11 +63,23 @@ for i in range(1, 6):
 
 epochs = 100
 batch_size = 16
+
+prev_loss = 1e4
+patience = deepcopy(early_stop.patience)
 for epoch in range(epochs):
-    model.fit(np.array(cifar10_train_images), np.array(cifar10_train_labels),
-              epochs=(epoch + 1), batch_size=batch_size, initial_epoch=epoch,
-              callbacks=[early_stop, tb_callback])
+    hist = model.fit(np.array(cifar10_train_images), np.array(
+                     cifar10_train_labels), epochs=(epoch + 1),
+                     batch_size=batch_size, initial_epoch=epoch,
+                     callbacks=[tb_callback])
     K.set_value(opt.lr, 0.95 * K.get_value(opt.lr))
+    if hist.history[early_stop.monitor][0] - prev_loss > early_stop.min_delta:
+        patience -= 1
+    else:
+        patience = deepcopy(early_stop.patience)
+    if patience <= 0:
+        break
+    else:
+        prev_loss = hist.history[early_stop.monitor][0]
 
 del cifar10_train_images, cifar10_train_labels
 print "Loading test images..."
