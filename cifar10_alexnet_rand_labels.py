@@ -69,7 +69,7 @@ for i in range(1, 6):
     train_file.close()
 
 epochs = 100
-batch_size = 16
+batch_size = 4
 
 prev_loss = 1e4
 patience = deepcopy(early_stop.patience)
