@@ -172,11 +172,11 @@ for i in range(num_epochs):
         if j % display_every == 0:
             time_left = ((time.time() - initial_time) / (j + 1)) * ((len(
                         cifar10_train_labels) / batch_size) - (j + 1))
-            sys.stdout.write("\rEpoch: %2d, Loss: %6.4f, Accuracy: %5.2f%%, "\
+            sys.stdout.write("\rEpoch: %2d, Loss: %6.4f, Accuracy:%6.2f%%, "\
                              "ETA: %4ds" % (i + 1, total_train_loss / (j + 1),
                              total_train_accuracy / (j + 1), time_left))
             sys.stdout.flush()
-    print "\rEpoch: %2d, Loss: %6.4f, Accuracy: %5.2f%%, Time Taken: %4ds" % (
+    print "\rEpoch: %2d, Loss: %6.4f, Accuracy:%6.2f%%, Time Taken: %4ds" % (
           i + 1, total_train_loss / (j + 1), total_train_accuracy / (j + 1),
           time.time() - initial_time)
     if ((prev_loss - total_train_loss) / (j + 1)) < early_stop_threshold:
@@ -225,6 +225,6 @@ for j, (batch_x, batch_y) in enumerate(cifar_next_batch_test(batch_size)):
         sys.stdout.write("\rTest Accuracy: %5.2f%%, ETA: %4ds" % (
                          total_test_accuracy / (j + 1), time_left))
         sys.stdout.flush()
-print "\rTest Accuracy: %5.2f%%, Time Taken: %4ds" % (total_test_accuracy / (
+print "\rTest Accuracy:%6.2f%%, Time Taken: %4ds" % (total_test_accuracy / (
       j + 1), time.time() - initial_time)
 
