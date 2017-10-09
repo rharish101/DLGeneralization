@@ -18,6 +18,7 @@ My project to recreate the results in "Understanding Deep Learning Requires Reth
 * ### Saved Models
   * *cifar10_alexnet.h5*: A saved Keras Sequential model for mini Alexnet trained on CIFAR10.
   * *cifar10_alexnet_wd.h5*: A saved Keras Sequential model for mini Alexnet with L2 regularisation, trained on CIFAR10.
+  * *cifar10_alexnet_rand_crop.h5*: A saved Keras Sequential model for mini Alexnet trained on CIFAR10 with random crop.
   * *cifar10_alexnet_rand_labels.h5*: A saved Keras Sequential model for mini Alexnet trained on CIFAR10 with random labels.
   * *cifar10_keras_mlp3.h5*: A saved Keras Sequential model for MLP with 3 hidden layers, trained on CIFAR10.
   * *cifar10_keras_mlp3_wd.h5*: A saved Keras Sequential model for MLP with 3 hidden layers and L2 regularisation, trained on CIFAR10.
