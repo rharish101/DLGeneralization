@@ -128,7 +128,7 @@ print(model.evaluate(np.array(cifar10_test_images),
 
 response = raw_input("Do you want to save this model? (Y/n): ")
 if response.lower() not in ['n', 'no', 'nah', 'nein', 'nahi', 'nope']:
-    model.save('cifar10_alexnet.h5')
-    copy('./cifar10_alexnet.py', './Tensorboard/alexnet/' + now)
+    model.save('cifar10_alexnet_rand_crop.h5')
+    copy('./cifar10_alexnet_rand_crop.py', './Tensorboard/alexnet/' + now)
     print "Model saved"
 
