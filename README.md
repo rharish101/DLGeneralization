@@ -15,6 +15,7 @@ My project to recreate the results in "Understanding Deep Learning Requires Reth
   * *cifar10_keras_mlp_wd.py*: Code to train MLP with 1 hidden layer on CIFAR10 with weight decay.
   * *cifar10_keras_mlp_rand.py*: Code to train MLP with 1 hidden layer on CIFAR10 without regularisation and with random training labels.
   * *cifar10_tf_inception.py*: Code to train mini Inception on CIFAR10 without regularisation.
+  * *cifar10_tf_inception_wd.py*: Code to train mini Inception on CIFAR10 with weight decay.
 
 * ### Saved Models
   * *cifar10_alexnet.h5*: A saved Keras Sequential model for mini Alexnet trained on CIFAR10.
