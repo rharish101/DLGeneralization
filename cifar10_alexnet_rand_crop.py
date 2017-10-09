@@ -114,7 +114,6 @@ for image, label in zip(test_dict['data'], test_dict['labels']):
     image_green = np.reshape(image_green, (32, 32, 1))
     image_blue = np.reshape(image[2048:3072], (32, 32)) / 255.0
     image_blue = np.reshape(image_blue, (32, 32, 1))
-    image_blue = np.reshape(image_blue, (32, 32, 1))
     image = np.concatenate([image_red, image_green, image_blue], axis=-1)
     image = norm_image.eval(feed_dict={img:image})
     image = image[2:-2, 2:-2, :]
