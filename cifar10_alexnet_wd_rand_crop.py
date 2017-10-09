@@ -8,6 +8,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.callbacks import TensorBoard, EarlyStopping
 from keras.optimizers import SGD
 from keras.initializers import Constant
+from keras.regularizers import l2
 import keras.backend as K
 import pickle
 import time
