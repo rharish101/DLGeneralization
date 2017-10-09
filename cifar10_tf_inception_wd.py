@@ -145,7 +145,7 @@ def cifar_next_batch_train(batch_size):
 # Hyperparameters
 learn_rate = 0.1
 decay_rate = 0.95
-num_epochs = 50
+num_epochs = 100
 batch_size = 32
 display_every = 1
 early_stop_threshold = 0.00025
