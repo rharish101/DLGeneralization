@@ -17,6 +17,7 @@ My project to recreate the results in "Understanding Deep Learning Requires Reth
   * *cifar10_tf_inception.py*: Code to train mini Inception on CIFAR10 without regularisation.
   * *cifar10_tf_inception_wd.py*: Code to train mini Inception on CIFAR10 with weight decay.
   * *cifar10_tf_inception_rand_crop.py*: Code to train mini Inception on CIFAR10 without regularisation and with random crop.
+  * *cifar10_tf_inception_wd_rand_crop.py*: Code to train mini Inception on CIFAR10 with weight decay and with random crop.
 
 * ### Saved Models
   * *cifar10_alexnet.h5*: A saved Keras Sequential model for mini Alexnet trained on CIFAR10.
