@@ -3,9 +3,9 @@ This folder contains code and saved models for an MLP with 1 hidden layer traine
 
 ## Contents
 * ###  Code
-  * *cifar10_keras_mlp.py*: Code to train MLP with 1 hidden layer on CIFAR10 without regularisation.
-  * *cifar10_keras_mlp_wd.py*: Code to train MLP with 1 hidden layer on CIFAR10 with weight decay.
-  * *cifar10_keras_mlp_rand.py*: Code to train MLP with 1 hidden layer on CIFAR10 without regularisation and with random training labels.
+  * [*cifar10_keras_mlp.py*](./cifar10_keras_mlp.py): Code to train MLP with 1 hidden layer on CIFAR10 without regularisation.
+  * [*cifar10_keras_mlp_wd.py*](./cifar10_keras_mlp.py): Code to train MLP with 1 hidden layer on CIFAR10 with weight decay.
+  * [*cifar10_keras_mlp_rand.py*](./cifar10_keras_mlp.py): Code to train MLP with 1 hidden layer on CIFAR10 without regularisation and with random training labels.
 
 * ### Saved Models
   * *cifar10_keras_mlp.h5*: A saved Keras Sequential model for MLP with 1 hidden layer, trained on CIFAR10.
