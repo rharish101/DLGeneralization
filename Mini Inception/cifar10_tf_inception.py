@@ -54,16 +54,6 @@ def dense(x, input_shape, num_neurons):
     b = bias_variable([num_neurons])
     return tf.matmul(flat, W) + b
 
-#class Network:
-    #def __init__(self, input_shape, output_shape):
-        #self.x = tf.placeholder(tf.float32, [None] + list(input_shape))
-        #self.y_actual = tf.placeholder(tf.float32, [None] + list(output_shape))
-        #self.layers = [self.x]
-
-    #def add(layer_func, **kwargs):
-        #layer = layer_func(self.layers[-1], self.layers[-1].shape, kwargs)
-        #self.layers.append(layer)
-
 x = tf.placeholder(tf.float32, [None, 28, 28, 3])
 y_actual = tf.placeholder(tf.float32, [None, 10])
 
@@ -105,9 +95,9 @@ norm_image = tf.image.per_image_standardization(img)
 sess = tf.InteractiveSession()
 tensorboard_data = tf.summary.merge_all()
 current_time = str(time.time())
-train_writer = tf.summary.FileWriter('Tensorboard/inception/train/' +\
+train_writer = tf.summary.FileWriter('../Tensorboard/inception/train/' +\
                                      current_time, sess.graph)
-test_writer = tf.summary.FileWriter('Tensorboard/inception/test/' +\
+test_writer = tf.summary.FileWriter('../Tensorboard/inception/test/' +\
                                     current_time, sess.graph)
 tf.global_variables_initializer().run()
 
@@ -115,7 +105,7 @@ cifar10_train_images = []
 cifar10_train_labels = []
 print "Loading training images..."
 for i in range(1, 6):
-    train_file = open('../cifar-10-batches-py/data_batch_' + str(i), 'r')
+    train_file = open('../../cifar-10-batches-py/data_batch_' + str(i), 'r')
     train_dict = pickle.load(train_file)
     for image, label in zip(train_dict['data'], train_dict['labels']):
         image_red = np.reshape(image[:1024], (32, 32))[2:-2, 2:-2] / 255.0
@@ -186,7 +176,7 @@ del cifar10_train_images, cifar10_train_labels
 print "Loading test images..."
 cifar10_test_images = []
 cifar10_test_labels = []
-test_file = open('../cifar-10-batches-py/test_batch', 'r')
+test_file = open('../../cifar-10-batches-py/test_batch', 'r')
 test_dict = pickle.load(test_file)
 for image, label in zip(test_dict['data'], test_dict['labels']):
     image_red = np.reshape(image[:1024], (32, 32))[2:-2, 2:-2] / 255.0

@@ -38,7 +38,7 @@ model.add(Dense(10, kernel_initializer='glorot_normal',
 
 early_stop = EarlyStopping(monitor='loss', min_delta=0.0001, patience=5)
 now = str(time.time())
-tb_callback = TensorBoard(log_dir='Tensorboard/alexnet/' + now)
+tb_callback = TensorBoard(log_dir='../Tensorboard/alexnet/' + now)
 
 img = tf.placeholder(tf.float32, [28, 28, 3])
 norm_image = tf.image.per_image_standardization(img)
@@ -53,7 +53,7 @@ cifar10_train_images = []
 cifar10_train_labels = []
 print "Loading training images..."
 for i in range(1, 6):
-    train_file = open('../cifar-10-batches-py/data_batch_' + str(i), 'r')
+    train_file = open('../../cifar-10-batches-py/data_batch_' + str(i), 'r')
     train_dict = pickle.load(train_file)
     for image, label in zip(train_dict['data'], train_dict['labels']):
         image_red = np.reshape(image[:1024], (32, 32))[2:-2, 2:-2] / 255.0
@@ -94,7 +94,7 @@ del cifar10_train_images, cifar10_train_labels
 print "Loading test images..."
 cifar10_test_images = []
 cifar10_test_labels = []
-test_file = open('../cifar-10-batches-py/test_batch', 'r')
+test_file = open('../../cifar-10-batches-py/test_batch', 'r')
 test_dict = pickle.load(test_file)
 for image, label in zip(test_dict['data'], test_dict['labels']):
     image_red = np.reshape(image[:1024], (32, 32))[2:-2, 2:-2] / 255.0
@@ -118,6 +118,6 @@ print(model.evaluate(np.array(cifar10_test_images),
 response = raw_input("Do you want to save this model? (Y/n): ")
 if response.lower() not in ['n', 'no', 'nah', 'nein', 'nahi', 'nope']:
     model.save('cifar10_alexnet_wd.h5')
-    copy('./cifar10_alexnet_wd.py', './Tensorboard/alexnet/' + now)
+    copy('./cifar10_alexnet_wd.py', '../Tensorboard/alexnet/' + now)
     print "Model saved"
 
