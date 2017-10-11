@@ -87,8 +87,9 @@ y_pred, dense_weights  = dense(layer12, [None, 7, 7, 176 + 160], 10,
                                return_weights=True)
 y_pred = tf.nn.softmax(y_pred)
 
+l2_param = tf.placeholder(tf.float32, [])
 loss = tf.reduce_mean(tf.square(y_actual - y_pred)) + tf.reduce_mean(tf.square(
-       dense_weights))
+       dense_weights)) * l2_param
 #loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_actual,
                                                               #logits=y_pred))
 tf.summary.scalar('loss', loss)
@@ -151,8 +152,9 @@ def cifar_next_batch_train(batch_size):
 # Hyperparameters
 learn_rate = 0.1
 decay_rate = 0.95
+reg_param = 0.1
 num_epochs = 50
-batch_size = 32
+batch_size = 8
 display_every = 1
 early_stop_threshold = 0.00025
 early_stop_patience = 5
@@ -171,7 +173,8 @@ for i in range(num_epochs):
                                                    tensorboard_data],
                                                    feed_dict={x:batch_x,
                                                    y_actual:batch_y,
-                                                   learning_rate:learn_rate})
+                                                   learning_rate:learn_rate,
+                                                   l2_param:reg_param})
         total_train_loss += train_loss
         total_train_accuracy += train_acc
         train_writer.add_summary(data, (i + 1) * (j + 1))
@@ -223,7 +226,7 @@ total_test_accuracy = 0
 initial_time = time.time()
 for j, (batch_x, batch_y) in enumerate(cifar_next_batch_test(batch_size)):
     test_acc, data = sess.run([accuracy, tensorboard_data], feed_dict={
-                              x:batch_x, y_actual:batch_y})
+                              x:batch_x, y_actual:batch_y, l2_param:0})
     total_test_accuracy += test_acc
     test_writer.add_summary(data, j + 1)
     if j % display_every == 0:
