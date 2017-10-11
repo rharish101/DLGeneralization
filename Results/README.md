@@ -1,5 +1,5 @@
 # Results
-This folder contains screenshots of results obtained on the various models.
+This folder contains screenshots of my current best results obtained on various models.
 
 ## Contents
   * #### Mini Alexnet
