@@ -5,5 +5,6 @@ This folder contains code for mini Inception trained on CIFAR10
   * ###  Code
     * [*cifar10_tf_inception.py*](./cifar10_tf_inception.py): Code to train mini Inception on CIFAR10 without regularisation.
     * [*cifar10_tf_inception_rand_crop.py*](./cifar10_tf_inception_rand_crop.py): Code to train mini Inception on CIFAR10 without regularisation and with random crop.
+    * [*cifar10_tf_inception_rand_labels.py*](./cifar10_tf_inception_rand_labels.py): Code to train mini Inception on CIFAR10 without regularisation and with random training labels.
     * [*cifar10_tf_inception_wd.py*](./cifar10_tf_inception_wd.py): Code to train mini Inception on CIFAR10 with weight decay.
     * [*cifar10_tf_inception_wd_rand_crop.py*](./cifar10_tf_inception_wd_rand_crop.py): Code to train mini Inception on CIFAR10 with weight decay and with random crop.

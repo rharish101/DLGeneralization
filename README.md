@@ -12,6 +12,7 @@ My project to recreate the results in the paper "[Understanding Deep Learning Re
     * #### [Mini Inception](./Mini%20Inception)
       * [*cifar10_tf_inception.py*](./Mini%20Inception/cifar10_tf_inception.py): Code to train mini Inception on CIFAR10 without regularization.
       * [*cifar10_tf_inception_rand_crop.py*](./Mini%20Inception/cifar10_tf_inception_rand_crop.py): Code to train mini Inception on CIFAR10 without regularization and with random crop.
+      * [*cifar10_tf_inception_rand_labels.py*](./Mini%20Inception/cifar10_tf_inception_rand_labels.py): Code to train mini Inception on CIFAR10 without regularisation and with random training labels.
       * [*cifar10_tf_inception_wd.py*](./Mini%20Inception/cifar10_tf_inception_wd.py): Code to train mini Inception on CIFAR10 with weight decay.
       * [*cifar10_tf_inception_wd_rand_crop.py*](./Mini%20Inception/cifar10_tf_inception_wd_rand_crop.py): Code to train mini Inception on CIFAR10 with weight decay and with random crop.
     * #### [MLP1 - MLP with 1 hidden layer](./MLP1)
