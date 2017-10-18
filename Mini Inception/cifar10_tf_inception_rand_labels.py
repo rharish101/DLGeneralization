@@ -72,11 +72,11 @@ layer10 = inception_module(layer9, 96 + 48 + 96, 176, 160)
 layer11 = inception_module(layer10, 176 + 160, 176, 160)
 layer12 = mean_pool_2d(layer11, 7, 1)
 y_pred = dense(layer12, [None, 7, 7, 176 + 160], 10)
-y_pred = tf.nn.softmax(y_pred)
+#y_pred = tf.nn.softmax(y_pred)
 
-loss = tf.reduce_mean(tf.square(y_actual - y_pred))
-#loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_actual,
-                                                              #logits=y_pred))
+#loss = tf.reduce_mean(tf.square(y_actual - y_pred))
+loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_actual,
+                                                              logits=y_pred))
 tf.summary.scalar('loss', loss)
 
 # The SGD Optimizer with momentum
@@ -85,6 +85,7 @@ update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
 with tf.control_dependencies(update_ops):
     train_step = tf.train.MomentumOptimizer(learning_rate,
                                             momentum=0.9).minimize(loss)
+    #train_step = tf.train.AdamOptimizer().minimize(loss)
 
 correct_prediction = tf.equal(tf.argmax(y_pred, 1), tf.argmax(y_actual, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32)) * 100
@@ -132,9 +133,9 @@ def cifar_next_batch_train(batch_size):
 learn_rate = 0.1
 decay_rate = 0.95
 num_epochs = 50
-batch_size = 32
+batch_size = 1
 display_every = 1
-early_stop_threshold = 0.00025
+early_stop_threshold = 0.0001
 early_stop_patience = 5
 
 for i in range(num_epochs):
@@ -158,11 +159,11 @@ for i in range(num_epochs):
         if j % display_every == 0:
             time_left = ((time.time() - initial_time) / (j + 1)) * ((len(
                         cifar10_train_labels) / batch_size) - (j + 1))
-            sys.stdout.write("\rEpoch: %2d, Loss: %6.4f, Accuracy:%6.2f%%, "\
+            sys.stdout.write("\rEpoch: %2d, Loss: %7.5f, Accuracy:%6.2f%%, "\
                              "ETA: %4ds" % (i + 1, total_train_loss / (j + 1),
                              total_train_accuracy / (j + 1), time_left))
             sys.stdout.flush()
-    print "\rEpoch: %2d, Loss: %6.4f, Accuracy:%6.2f%%, Time Taken: %4ds" % (
+    print "\rEpoch: %2d, Loss: %7.5f, Accuracy:%6.2f%%, Time Taken: %4ds" % (
           i + 1, total_train_loss / (j + 1), total_train_accuracy / (j + 1),
           time.time() - initial_time)
     if ((prev_loss - total_train_loss) / (j + 1)) < early_stop_threshold:
