@@ -3,6 +3,8 @@ My project to recreate the results in the paper "[Understanding Deep Learning Re
 
 ## Contents
   * ###  Code
+    * #### [Inception v3](./Inception%20v3)
+      All code taken from [Tensorflow Models - Inception](https://github.com/tensorflow/models/tree/master/research/inception) and modified for my use.
     * #### [Mini Alexnet](./Mini%20Alexnet)
       * [*cifar10_alexnet.py*](./Mini%20Alexnet/cifar10_alexnet.py): Code to train mini Alexnet on CIFAR10 without regularization.
       * [*cifar10_alexnet_rand_crop.py*](./Mini%20Alexnet/cifar10_alexnet_rand_crop.py): Code to train mini Alexnet on CIFAR10 without regularization and with random crop.
