@@ -31,9 +31,10 @@ FLAGS = tf.app.flags.FLAGS
 def main(_):
   dataset = ImagenetData(subset=FLAGS.subset)
   assert dataset.data_files()
-  if tf.gfile.Exists(FLAGS.train_dir):
-    tf.gfile.DeleteRecursively(FLAGS.train_dir)
-  tf.gfile.MakeDirs(FLAGS.train_dir)
+  #if tf.gfile.Exists(FLAGS.train_dir):
+    #tf.gfile.DeleteRecursively(FLAGS.train_dir)
+  if not tf.gfile.Exists(FLAGS.train_dir):
+    tf.gfile.MakeDirs(FLAGS.train_dir)
   inception_train.train(dataset)
 
 

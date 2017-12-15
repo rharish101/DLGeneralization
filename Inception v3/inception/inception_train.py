@@ -52,7 +52,8 @@ tf.app.flags.DEFINE_boolean('fine_tune', False,
                             """If set, randomly initialize the final layer """
                             """of weights in order to train the network on a """
                             """new task.""")
-tf.app.flags.DEFINE_string('pretrained_model_checkpoint_path', '',
+tf.app.flags.DEFINE_string('pretrained_model_checkpoint_path',
+                           '/mnt/Data/tmp/imagenet_train/',
                            """If specified, restore this pretrained model """
                            """before beginning any training.""")
 
@@ -317,12 +318,14 @@ def train(dataset):
         log_device_placement=FLAGS.log_device_placement))
     sess.run(init)
 
-    if FLAGS.pretrained_model_checkpoint_path:
-      assert tf.gfile.Exists(FLAGS.pretrained_model_checkpoint_path)
+    if FLAGS.pretrained_model_checkpoint_path and tf.gfile.Exists(
+    FLAGS.pretrained_model_checkpoint_path):
+      #assert tf.gfile.Exists(FLAGS.pretrained_model_checkpoint_path)
       variables_to_restore = tf.get_collection(
           slim.variables.VARIABLES_TO_RESTORE)
       restorer = tf.train.Saver(variables_to_restore)
-      restorer.restore(sess, FLAGS.pretrained_model_checkpoint_path)
+      restorer.restore(sess, tf.train.latest_checkpoint(
+                       FLAGS.pretrained_model_checkpoint_path))
       print('%s: Pre-trained model restored from %s' %
             (datetime.now(), FLAGS.pretrained_model_checkpoint_path))
 
@@ -333,25 +336,30 @@ def train(dataset):
         FLAGS.train_dir,
         graph=sess.graph)
 
-    for step in range(FLAGS.max_steps):
-      start_time = time.time()
-      _, loss_value = sess.run([train_op, loss])
-      duration = time.time() - start_time
+    try:
+      for step in range(FLAGS.max_steps):
+        start_time = time.time()
+        _, loss_value = sess.run([train_op, loss])
+        duration = time.time() - start_time
 
-      assert not np.isnan(loss_value), 'Model diverged with loss = NaN'
+        assert not np.isnan(loss_value), 'Model diverged with loss = NaN'
 
-      if step % 10 == 0:
-        examples_per_sec = FLAGS.batch_size / float(duration)
-        format_str = ('%s: step %d, loss = %.2f (%.1f examples/sec; %.3f '
-                      'sec/batch)')
-        print(format_str % (datetime.now(), step, loss_value,
-                            examples_per_sec, duration))
+        if step % 10 == 0:
+          examples_per_sec = FLAGS.batch_size / float(duration)
+          format_str = ('%s: step %d, loss = %.2f (%.1f examples/sec; %.3f '
+                        'sec/batch)')
+          print(format_str % (datetime.now(), step, loss_value,
+                              examples_per_sec, duration))
 
-      if step % 100 == 0:
-        summary_str = sess.run(summary_op)
-        summary_writer.add_summary(summary_str, step)
+        if step % 100 == 0:
+          summary_str = sess.run(summary_op)
+          summary_writer.add_summary(summary_str, step)
 
-      # Save the model checkpoint periodically.
-      if step % 5000 == 0 or (step + 1) == FLAGS.max_steps:
-        checkpoint_path = os.path.join(FLAGS.train_dir, 'model.ckpt')
-        saver.save(sess, checkpoint_path, global_step=step)
+        # Save the model checkpoint periodically.
+        if step % 5000 == 0 or (step + 1) == FLAGS.max_steps:
+          checkpoint_path = os.path.join(FLAGS.train_dir, 'model.ckpt')
+          saver.save(sess, checkpoint_path, global_step=step)
+    except KeyboardInterrupt:
+      print("\nKeyboard Interrupt received\nSaving model..")
+      checkpoint_path = os.path.join(FLAGS.train_dir, 'model.ckpt')
+      saver.save(sess, checkpoint_path, global_step=step)
